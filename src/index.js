@@ -37,8 +37,30 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+const dotsAndDashes = {
+    '00': '',
+    '01': '',
+    '10': '.',
+    '11': '-',
+};
+
+
 function decode(expr) {
-    // write your solution here
+    let string = '';
+    const arr = expr.match(/.{10}/g)
+    for (elem of arr) {
+        if (elem[0] === '*') {
+            string += ' '
+        } else {
+            let morseCode = ''
+            const subArr = elem.match(/.{2}/g)
+            for (subElem of subArr) {
+                morseCode += dotsAndDashes[subElem]
+            }
+            string += MORSE_TABLE[morseCode]
+        }
+    }
+    return string
 }
 
 module.exports = {
